@@ -40,7 +40,7 @@ public class ParamValidator {
                 }
             }
        // }catch (ValidationException ve) {
-            System.out.println("/////");
+            System.out.println("You need to .....");
             System.exit(1);
         }
 
