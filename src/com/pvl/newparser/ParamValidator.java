@@ -14,36 +14,34 @@ public class ParamValidator {
     }
 
     public void validate() {
-        //try {
-            for (ParameterDefiner p : commandList) {
-                String defComName = p.getName();
-                String defComType = p.getType();
-                boolean defComRequired = p.isRequired();
 
-                for (UserParameters up : userCommandList) {
+        for (ParameterDefiner p : commandList) {
+            String defComName = p.getName();
+            String defComType = p.getType();
+            boolean defComRequired = p.isRequired();
+
+            boolean requiredParamIsNotFound = p.isRequired();
+
+            for (UserParameters up : userCommandList) {
                     String userComName = up.getName();
                     String userComValue = up.getValue();
 
-                    if (defComName.equals(userComName) && userComValue != null) {
-                        if (defComType.equals("Integer") && !isInteger(userComValue)) {
-                            throw new ValidationException("Value for parameter < " + userComValue + "> should be an Integer");
-                        }
-                        if (defComRequired != true) {
-                            if (defComRequired = true) {
-                            }
-                        } else {
-                            throw new ValidationException("Input path is required");
-                        }
+                if (defComName.equals(userComName) && userComValue != null) {
+                    if (defComType.equals("Integer") && !isInteger(userComValue)) {
+                        throw new ValidationException("Value for parameter < " + userComValue + "> should be an Integer");
                     }
 
-
+                    if (defComRequired) {
+                        requiredParamIsNotFound = false;
+                    } else {
+                        if (requiredParamIsNotFound) {
+                            throw new ValidationException("Required param " + p.getName() + " is not found");
+                        }
+                    }
                 }
             }
-       // }catch (ValidationException ve) {
-            System.out.println("You need to .....");
-            System.exit(1);
-        }
 
+        }
     }
 
     private Boolean isInteger(String str) {
