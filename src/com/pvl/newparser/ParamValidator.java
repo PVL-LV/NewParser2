@@ -53,11 +53,10 @@ public class ParamValidator {
         }
     }
 
+    //TODO for testing, need to delete it later
     String inPath;
     String ouPath = "/home/pvl/Desktop/output.txt" ;
     Integer miValue = 3;
-
-
 
     public String getInputPath() {
         return inPath;

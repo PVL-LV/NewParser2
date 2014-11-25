@@ -27,12 +27,12 @@ public class NewParser {
 
 
         ParamValidator pv = new ParamValidator(commandList, userCommandList);
-
-        try {
+        //TODO somthing wrong with Exeptions
+        //try {
             pv.validate();
-        } catch (ValidationException ve) {
-             System.out.println(ve.getMessage());
-        }
+//        } catch (ValidationException ve) {
+//             System.out.println(ve.getMessage());
+//        }
 
         inPath = pv.getInputPath();
         outPath = pv.getOutputPath();
