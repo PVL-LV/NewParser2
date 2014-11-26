@@ -14,9 +14,9 @@ public class NewParser {
     static Map<String, Integer> listOfWords = new HashMap<String, Integer>();
 
     static {
-        commandList.add(new ParameterDefiner("inputPath", "String", true));
-        commandList.add(new ParameterDefiner("outputPath", "String", false));
-        commandList.add(new ParameterDefiner("minValue", "Integer", false));
+        commandList.add(new ParameterDefiner("inputPath", ParameterDefiner.STRING_TYPE, true));
+        commandList.add(new ParameterDefiner("outputPath", ParameterDefiner.STRING_TYPE, false));
+        commandList.add(new ParameterDefiner("minValue", ParameterDefiner.INTEGER_TYPE, false));
     }
 
 
@@ -28,11 +28,12 @@ public class NewParser {
 
         ParamValidator pv = new ParamValidator(commandList, userCommandList);
         //TODO somthing wrong with Exeptions
-        //try {
+        try {
             pv.validate();
-//        } catch (ValidationException ve) {
-//             System.out.println(ve.getMessage());
-//        }
+        } catch (ValidationException ve) {
+             System.out.println(ve.getMessage());
+             System.exit(1);
+        }
 
         inPath = pv.getInputPath();
         outPath = pv.getOutputPath();
@@ -47,7 +48,6 @@ public class NewParser {
 
             while ((line = br.readLine()) != null) {
                 br.lines();
-
                 fullBook += line + "\r\n";
             }
             br.close();
@@ -55,6 +55,7 @@ public class NewParser {
         } catch (Exception e) {
             System.out.println(e);
         }
+
 
         String[] words = fullBook.split(" ");
 

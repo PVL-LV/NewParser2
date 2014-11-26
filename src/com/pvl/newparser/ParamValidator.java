@@ -13,7 +13,7 @@ public class ParamValidator {
         this.userCommandList = userCommandList;
     }
 
-    public void validate() {
+    public void validate() throws ValidationException {
 
         for (ParameterDefiner p : commandList) {
             String defComName = p.getName();
@@ -27,7 +27,7 @@ public class ParamValidator {
                     String userComValue = up.getValue();
 
                 if (defComName.equals(userComName) && userComValue != null) {
-                    if (defComType.equals("Integer") && !isInteger(userComValue)) {
+                    if (defComType.equals(ParameterDefiner.INTEGER_TYPE) && !isInteger(userComValue)) {
                         throw new ValidationException("Value for parameter < " + userComValue + "> should be an Integer");
                     }
 
