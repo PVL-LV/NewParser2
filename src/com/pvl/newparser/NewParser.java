@@ -41,20 +41,25 @@ public class NewParser {
 
 
         String fullBook = "";
-
         try {
             BufferedReader br = new BufferedReader(new FileReader(inPath));
-            String line;
+            try {
+                String line;
 
-            while ((line = br.readLine()) != null) {
-                br.lines();
-                fullBook += line + "\r\n";
+                while ((line = br.readLine()) != null) {
+                    br.lines();
+                    fullBook += line + "\r\n";
+                }
             }
-            br.close();
+                finally {
+                    br.close();
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
 
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+
+
 
 
         String[] words = fullBook.split(" ");
