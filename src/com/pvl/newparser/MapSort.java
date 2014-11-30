@@ -8,9 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by pvl on 11/14/14.
- */
 public class MapSort {
 
 

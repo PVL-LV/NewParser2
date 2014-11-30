@@ -27,7 +27,7 @@ public class NewParser {
 
 
         ParamValidator pv = new ParamValidator(commandList, userCommandList);
-        //TODO somthing wrong with Exeptions
+
         try {
             pv.validate();
         } catch (ValidationException ve) {
@@ -41,21 +41,28 @@ public class NewParser {
 
 
         String fullBook = "";
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(inPath));
+
+            BufferedReader br = null;
             try {
+                br = new BufferedReader(new FileReader(inPath));
                 String line;
 
                 while ((line = br.readLine()) != null) {
                     br.lines();
                     fullBook += line + "\r\n";
                 }
-            }
-                finally {
-                    br.close();
-                }
+
+
             } catch (Exception e) {
                 System.out.println(e);
+            }
+
+            finally {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
 
@@ -78,15 +85,25 @@ public class NewParser {
             wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
 
             if (outPath != null) {
+                Writer out = null;
                 try {
-                    Writer out = new BufferedWriter(new FileWriter(outPath));
+                    out = new BufferedWriter(new FileWriter(outPath));
                     out.write(wfp);
-                    out.flush();
-                    out.close();
-                } catch (IOException e) {
+                    //out.flush();
+                    //  out.close();
+                } catch (Exception e) {
                     System.out.println("Can't write to file " + outPath);
                     System.exit(0);
                 }
+                finally {
+                    try {
+                        out.flush();
+                        out.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
             } else {
                 System.out.println(wfp);
             }
