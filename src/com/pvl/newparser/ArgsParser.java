@@ -6,7 +6,7 @@ public class ArgsParser {
 
     private String[] args;
     private UserParameters usPar;
-    private List<UserParameters> userParameters;
+    private List<UserParameters> userParameters = new ArrayList<>();
 
     public ArgsParser(String[] args) {
         this.args = args;

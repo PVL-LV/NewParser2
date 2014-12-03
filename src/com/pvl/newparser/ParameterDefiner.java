@@ -2,6 +2,14 @@ package com.pvl.newparser;
 
 public class ParameterDefiner {
 
+    public static final String STRING_TYPE = "String";
+    public static final String INTEGER_TYPE = "Integer";
+
+    public static final String INPUT_PATH = "inputPath";
+    public static final String OUTPUT_PATH = "outputPath";
+    public static final String MIN_VALUE = "minValue";
+
+
     private String name;
     private String type;
     private boolean required;

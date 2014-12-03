@@ -9,14 +9,14 @@ public class NewParser {
     public static String outPath;
     public static int numberOfChar;
 
-    static List<ParameterDefiner> commandList;
+    public static List<ParameterDefiner> commandList;
 
-    static Map<String, Integer> listOfWords = new HashMap<String, Integer>();
+    static Map<String, Integer> listOfWords = new HashMap<>();
 
     static {
-        commandList.add(new ParameterDefiner("inputPath", ParameterDefiner.STRING_TYPE, true));
-        commandList.add(new ParameterDefiner("outputPath", ParameterDefiner.STRING_TYPE, false));
-        commandList.add(new ParameterDefiner("minValue", ParameterDefiner.INTEGER_TYPE, false));
+        commandList.add(new ParameterDefiner(ParameterDefiner.INPUT_PATH, ParameterDefiner.STRING_TYPE, true));
+        commandList.add(new ParameterDefiner(ParameterDefiner.OUTPUT_PATH, ParameterDefiner.STRING_TYPE, false));
+        commandList.add(new ParameterDefiner(ParameterDefiner.MIN_VALUE, ParameterDefiner.INTEGER_TYPE, false));
     }
 
 
@@ -65,10 +65,6 @@ public class NewParser {
                 }
             }
 
-
-
-
-
         String[] words = fullBook.split(" ");
 
         for (String i : words) {
@@ -109,13 +105,11 @@ public class NewParser {
             }
         }
 
-
         System.out.println("Done!!!");
     }
 
     public static int getNumberOfChar() {
         return numberOfChar;
     }
-
 
 }

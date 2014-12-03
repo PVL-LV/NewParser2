@@ -1,11 +1,12 @@
 package com.pvl.newparser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParamValidator {
 
-    List <ParameterDefiner> commandList;
-    List <UserParameters> userCommandList;
+    List <ParameterDefiner> commandList = new ArrayList<>();
+    List <UserParameters> userCommandList = new ArrayList<>();
 
 
     public ParamValidator(List<ParameterDefiner> commandList,List <UserParameters> userCommandList) {
@@ -15,30 +16,28 @@ public class ParamValidator {
 
     public void validate() throws ValidationException {
 
+
+
         for (ParameterDefiner p : commandList) {
             String defComName = p.getName();
             String defComType = p.getType();
             boolean defComRequired = p.isRequired();
 
-            boolean requiredParamIsNotFound = p.isRequired();
-
             for (UserParameters up : userCommandList) {
-                    String userComName = up.getName();
-                    String userComValue = up.getValue();
 
-                if (defComName.equals(userComName) && userComValue != null) {
+                String userComName = up.getName();
+                String userComValue = up.getValue();
+
+
+                if (defComName.equals(userComName) && userComValue != null && userComValue.length() > 0) {
                     if (defComType.equals(ParameterDefiner.INTEGER_TYPE) && !isInteger(userComValue)) {
                         throw new ValidationException("Value for parameter < " + userComValue + "> should be an Integer");
                     }
-
-                    if (defComRequired) {
-                        requiredParamIsNotFound = false;
-                    } else {
-                        if (requiredParamIsNotFound) {
-                            throw new ValidationException("Required param " + p.getName() + " is not found");
-                        }
-                    }
+                    defComRequired = false;
                 }
+            }
+            if (defComRequired) {
+                throw new ValidationException("Required param " + p.getName() + " is not found");
             }
 
         }
@@ -54,7 +53,7 @@ public class ParamValidator {
     }
 
     //TODO for testing, need to delete it later
-    String inPath;
+    String inPath = "/home/pvl/Desktop/new2.txt";
     String ouPath = "/home/pvl/Desktop/output.txt" ;
     Integer miValue = 3;
 
