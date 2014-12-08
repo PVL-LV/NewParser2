@@ -9,9 +9,9 @@ public class NewParser {
     public static String outPath;
     public static int numberOfChar;
 
-    public static List<ParameterDefiner> commandList;
-
-    static Map<String, Integer> listOfWords = new HashMap<>();
+    private static Map<String, Integer> listOfWords = new HashMap<>();
+    public static List<ParameterDefiner> commandList = new ArrayList<>();
+    public static List<UserParameters> userCommandList = new ArrayList<>();
 
     static {
         commandList.add(new ParameterDefiner(ParameterDefiner.INPUT_PATH, ParameterDefiner.STRING_TYPE, true));
@@ -19,11 +19,10 @@ public class NewParser {
         commandList.add(new ParameterDefiner(ParameterDefiner.MIN_VALUE, ParameterDefiner.INTEGER_TYPE, false));
     }
 
-
     public static void main(String[] args) {
 
         ArgsParser ap = new ArgsParser(args);
-        List<UserParameters> userCommandList = ap.parseAndAddToList();
+        userCommandList = ap.parseAndAddToList();
 
 
         ParamValidator pv = new ParamValidator(commandList, userCommandList);
@@ -35,9 +34,12 @@ public class NewParser {
              System.exit(1);
         }
 
-        inPath = pv.getInputPath();
-        outPath = pv.getOutputPath();
-        numberOfChar = pv.getMinValue();
+        CommandGetter comGetter = new CommandGetter(userCommandList);
+        comGetter.getCommand();
+
+        inPath = comGetter.getInPath();
+        outPath = comGetter.getOutPath();
+        numberOfChar = comGetter.getNumberOfChar();
 
 
         String fullBook = "";
@@ -85,8 +87,7 @@ public class NewParser {
                 try {
                     out = new BufferedWriter(new FileWriter(outPath));
                     out.write(wfp);
-                    //out.flush();
-                    //  out.close();
+
                 } catch (Exception e) {
                     System.out.println("Can't write to file " + outPath);
                     System.exit(0);
