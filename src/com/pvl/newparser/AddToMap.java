@@ -4,7 +4,7 @@ import java.util.Map;
 
 public class AddToMap {
 
-    private static int numberOfChar = NewParser.getNumberOfChar();
+    private static int numberOfChar = FileReaderAndWriter.getNumberOfChar();
 
     public static void addWordToMap(Map<String, Integer> map, String word) {
 

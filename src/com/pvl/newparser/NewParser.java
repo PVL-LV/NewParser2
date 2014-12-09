@@ -5,11 +5,6 @@ import java.util.*;
 
 public class NewParser {
 
-    public static  String inPath;
-    public static String outPath;
-    public static int numberOfChar;
-
-    private static Map<String, Integer> listOfWords = new HashMap<>();
     public static List<ParameterDefiner> commandList = new ArrayList<>();
     public static List<UserParameters> userCommandList = new ArrayList<>();
 
@@ -34,83 +29,11 @@ public class NewParser {
              System.exit(1);
         }
 
-        CommandGetter comGetter = new CommandGetter(userCommandList);
-        comGetter.getCommand();
-
-        inPath = comGetter.getInPath();
-        outPath = comGetter.getOutPath();
-        numberOfChar = comGetter.getNumberOfChar();
-
-
-        String fullBook = "";
-
-            BufferedReader br = null;
-            try {
-                br = new BufferedReader(new FileReader(inPath));
-                String line;
-
-                while ((line = br.readLine()) != null) {
-                    br.lines();
-                    fullBook += line + "\r\n";
-                }
-
-
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-
-            finally {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        String[] words = fullBook.split(" ");
-
-        for (String i : words) {
-
-            AddToMap atm = new AddToMap();
-            atm.addWordToMap(listOfWords, i.trim().toLowerCase());
-        }
-
-        MapSort mapSort = new MapSort();
-        listOfWords = mapSort.sortByValue(listOfWords);
-
-        String wfp;
-        for (Map.Entry<String, Integer> entry : listOfWords.entrySet()) {
-            wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
-
-            if (outPath != null) {
-                Writer out = null;
-                try {
-                    out = new BufferedWriter(new FileWriter(outPath));
-                    out.write(wfp);
-
-                } catch (Exception e) {
-                    System.out.println("Can't write to file " + outPath);
-                    System.exit(0);
-                }
-                finally {
-                    try {
-                        out.flush();
-                        out.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            } else {
-                System.out.println(wfp);
-            }
-        }
+        FileReaderAndWriter frw = new FileReaderAndWriter(userCommandList);
+        frw.readFile();
+        frw.writeFile();
 
         System.out.println("Done!!!");
-    }
-
-    public static int getNumberOfChar() {
-        return numberOfChar;
     }
 
 }

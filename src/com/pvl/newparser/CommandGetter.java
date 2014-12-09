@@ -6,9 +6,9 @@ import java.util.List;
 
 public class CommandGetter {
 
-    String inPath = null;
-    String outPath = null;
-    int numberOfChar = 0;
+    private String inPath = null;
+    private String outPath = null;
+    private int numberOfChar = 0;
 
     List<UserParameters> userCommandList = new ArrayList<>();
 
