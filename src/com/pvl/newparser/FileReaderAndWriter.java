@@ -15,31 +15,17 @@ public class FileReaderAndWriter {
     private static String fullBook = "";
 
     private static Map<String, Integer> listOfWords = new HashMap<>();
-    public static List<UserParameters> userCommandList = new ArrayList<>();
 
-
-
-    public  FileReaderAndWriter(List<UserParameters> userCommandList) {
-       // this.userCommandList = userCommandList;
+    public FileReaderAndWriter(List<UserParameters> userCommandList) {
 
         CommandGetter comGetter = new CommandGetter(userCommandList);
-        comGetter.getCommand();
 
         inPath = comGetter.getInPath();
         outPath = comGetter.getOutPath();
         numberOfChar = comGetter.getNumberOfChar();
-
     }
 
-
     public void readFile() {
-
-//        CommandGetter comGetter = new CommandGetter(userCommandList);
-//        comGetter.getCommand();
-//
-//        inPath = comGetter.getInPath();
-//        outPath = comGetter.getOutPath();
-//        numberOfChar = comGetter.getNumberOfChar();
 
         BufferedReader br = null;
         try {
@@ -62,7 +48,6 @@ public class FileReaderAndWriter {
             }
         }
     }
-
 
     public void writeFile() {
 

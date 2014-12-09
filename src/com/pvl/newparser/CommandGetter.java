@@ -14,10 +14,11 @@ public class CommandGetter {
 
     public CommandGetter(List<UserParameters> userCommandList) {
         this.userCommandList = userCommandList;
+        populateCommand();
     }
 
 
-    public void getCommand() {
+    private void populateCommand() {
 
 
         Iterator<UserParameters> userIter = userCommandList.iterator();
