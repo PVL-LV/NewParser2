@@ -17,9 +17,7 @@ public class CommandGetter {
         populateCommand();
     }
 
-
     private void populateCommand() {
-
 
         Iterator<UserParameters> userIter = userCommandList.iterator();
 

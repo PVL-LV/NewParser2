@@ -19,7 +19,6 @@ public class NewParser {
         ArgsParser ap = new ArgsParser(args);
         userCommandList = ap.parseAndAddToList();
 
-
         ParamValidator pv = new ParamValidator(commandList, userCommandList);
 
         try {
@@ -30,8 +29,13 @@ public class NewParser {
         }
 
         FileReaderAndWriter frw = new FileReaderAndWriter(userCommandList);
-        frw.readFile();
-        frw.writeFile();
+            frw.readFile();
+        try {
+            frw.writeFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         System.out.println("Done!!!");
     }

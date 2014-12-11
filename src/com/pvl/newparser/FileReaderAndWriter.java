@@ -1,7 +1,6 @@
 package com.pvl.newparser;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,25 +35,23 @@ public class FileReaderAndWriter {
                 br.lines();
                 fullBook += line + "\r\n";
             }
-
-
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println("Some mistake");
         } finally {
             try {
                 br.close();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void writeFile() {
+
+    public void writeFile()  throws IOException  {
 
         String[] words = fullBook.split(" ");
 
         for (String i : words) {
-
             AddToMap atm = new AddToMap();
             atm.addWordToMap(listOfWords, i.trim().toLowerCase());
         }
@@ -62,32 +59,30 @@ public class FileReaderAndWriter {
         MapSort mapSort = new MapSort();
         listOfWords = mapSort.sortByValue(listOfWords);
 
+
         String wfp;
-        for (Map.Entry<String, Integer> entry : listOfWords.entrySet()) {
-            wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
+        Writer out = null;
 
-            if (outPath != null) {
-                Writer out = null;
-                try {
-                    out = new BufferedWriter(new FileWriter(outPath));
+        if (outPath != null) {
+            try {
+                out = new BufferedWriter(new FileWriter(outPath));
+
+                for (Map.Entry<String, Integer> entry : listOfWords.entrySet()) {
+                    wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
                     out.write(wfp);
-
-                } catch (Exception e) {
-                    System.out.println("Can't write to file " + outPath);
-                    System.exit(0);
-                } finally {
-                    try {
-                        out.flush();
-                        out.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
+            } finally {
+                out.flush();
+                out.close();
+            }
+        }else {
+            for (Map.Entry<String, Integer> entry : listOfWords.entrySet()) {
+                wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
 
-            } else {
                 System.out.println(wfp);
             }
         }
+
     }
 
     public static int getNumberOfChar() {
