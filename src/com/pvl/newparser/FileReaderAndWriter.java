@@ -61,28 +61,26 @@ public class FileReaderAndWriter {
 
 
         String wfp;
-        Writer out = null;
+        PrintWriter pw;
 
         if (outPath != null) {
-            try {
-                out = new BufferedWriter(new FileWriter(outPath));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(outPath)));
 
-                for (Map.Entry<String, Integer> entry : listOfWords.entrySet()) {
-                    wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
-                    out.write(wfp);
-                }
-            } finally {
-                out.flush();
-                out.close();
-            }
-        }else {
+        } else {
+            pw = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"), true);
+        }
+
+        try {
             for (Map.Entry<String, Integer> entry : listOfWords.entrySet()) {
                 wfp = (entry.getKey() + " / " + entry.getValue() + "\r\n");
 
-                System.out.println(wfp);
-            }
-        }
+                pw.write(wfp);
 
+            }
+        }finally {
+            pw.flush();
+            pw.close();
+        }
     }
 
     public static int getNumberOfChar() {
